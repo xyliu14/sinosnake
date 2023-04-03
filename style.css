@@ -4,6 +4,23 @@ body {
   background-color: rgb(105, 130, 105);
 }
 
+
+#gameCanvas {
+  display: block;
+  margin: 0 auto;
+}
+
+#instructions {
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+  position: absolute;
+  color: rgb(241, 219, 191);
+}
+
+#instructions strong {
+  font-weight: bold;
+}
+
 #game-container {
   display: flex;
   justify-content: center;
@@ -22,6 +39,12 @@ body {
   margin: 0px;
   text-align: center;
   font-family: 'Noto Sans SC', sans-serif;
+}
+
+#pinyin-letters {
+  font-family: 'Noto Sans SC', sans-serif;
+  color: rgb(241, 219, 191);
+  font-size: 2vw;
 }
 
 #target-word-container {
@@ -50,6 +73,7 @@ body {
 }
 
 #eaten-letters {
+  font-family: 'Roboto', sans-serif;
   position: absolute;
   top: 34%;
   right: 19%;
@@ -72,7 +96,7 @@ body {
 
 #high-score-text {
   margin-left: 1vw;
-  padding-left: 1vw;
+  padding-left: 2vw;
   border-left: 2px solid #eadcc4; /* Add a vertical line */
 }
 
@@ -141,13 +165,23 @@ canvas {
     font-size: 4vw;
   }
   #target-word {
+    font-size: 6vw;
+  }
+  #pinyin-letters {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: rgb(241, 219, 191);
     font-size: 4vw;
   }
-  #eatenletters {
-    font-size: 4vw;
+  #eaten-letters {
+    font-size: 6vw;
+    position: absolute;
+    top: 17%;
+    right: 17%;
   } 
   #target-word-container {
-    width: 60%;
+    position: absolute;
+    top: 8%;
+    right: 10%;
   }
   #game-over-text-container {
     font-size: 8vw;
@@ -156,18 +190,17 @@ canvas {
     font-size: 4vw;
     padding: 2vw 4vw;
   }
-}
-
-@media (max-width: 768px) {
-  #target-word-container {
-    position: absolute;
-    top: 8%;
-    right: 10%;
+  #instructions {
+    font-size: 4vw;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(241, 219, 191);
+    letter-spacing: 0.3vw;
+    width: 80%;
   }
-  #eaten-letters {
-    position: absolute;
-    top: 17%;
-    right: 17%;
+  canvas {
+    border: 5px solid rgb(185, 155, 107);
   }
   #score-container {
     top: 15%;
@@ -180,14 +213,17 @@ canvas {
   #score-text, #high-score-text {
     font-size: 1vw;
   }
-}
-
-@media screen and (min-width: 769px) {
   #target-word, #eaten-letters {
     font-size: 2vw;
   }
+  #instructions {
+    font-size: 1vw;
+    bottom: 50px;
+    left: 51%;
+    transform: translateX(-50%);
+    color: rgb(241, 219, 191);
+    width: 35%;
+    letter-spacing: 0.07vw;
+  }
+
 }
-
-
-
-
