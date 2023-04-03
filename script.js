@@ -5,7 +5,7 @@ let gridSize = 32;
 let tileCount;
 
 let foodCount = 5; // Number of food items you want on the board
-let snakeSpeed = 100;
+let snakeSpeed;
 
 const background = 'rgb(241, 219, 191)';
 const snakeColor = 'rgb(170, 86, 86)';
@@ -147,11 +147,11 @@ function gameLoop() {
   
   let screenWidth = window.innerWidth;
   if (screenWidth >= 768) {
-    snakeSpeed = 100;
-  } else if (screenWidth >= 480) {
     snakeSpeed = 120;
-  } else {
+  } else if (screenWidth >= 480) {
     snakeSpeed = 140;
+  } else {
+    snakeSpeed = 160;
   }
 
   setTimeout(gameLoop, snakeSpeed);
