@@ -14,7 +14,6 @@ body {
   font-family: 'Roboto', sans-serif;
   text-align: left;
   position: absolute;
-  transform: translateX(-50%);
   color: rgb(241, 219, 191);
 }
 
@@ -195,6 +194,7 @@ canvas {
     font-size: 4vw;
     bottom: 60px;
     left: 50%;
+    transform: translateX(-50%);
     letter-spacing: 0.3vw;
     width: 80%;
   }
@@ -220,6 +220,7 @@ canvas {
     bottom: 50px;
     left: 51%;
     width: 35%;
+    transform: translateX(-50%);
     letter-spacing: 0.07vw;
   }
 }
