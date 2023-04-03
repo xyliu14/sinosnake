@@ -23,7 +23,7 @@ let currentPinyinIndex = 0;
 let pinyinDictionary;
 let chineseWords;
 let targetWord;
-let requiredPinyinLetters;
+let targetWordPinyin;
 let isGameOver = false;
 let score = 0;
 let highScore = 0;
@@ -85,8 +85,7 @@ function generateTargetWord(chineseWords, pinyinDictionary) {
   const randomWordIndex = Math.floor(Math.random() * chineseWords.length);
   targetWord = chineseWords[randomWordIndex];
   displayTargetWord(targetWord);
-  const targetWordPinyin = targetWord.split('').map((char) => getPinyinForCharacter(char, pinyinDictionary));
-  requiredPinyinLetters = targetWordPinyin.join('').split('');
+  targetWordPinyin = getPinyinForCharacter(targetWord, pinyinDictionary);
   currentPinyinIndex = 0;
 }
 
@@ -110,7 +109,7 @@ function startGame(chineseWords, pinyinDictionary) {
   // Generate initial food positions
   for (let i = 0; i < foodCount; i++) {
     if (i === 0) {
-      food.push(generateFood(requiredPinyinLetters[currentPinyinIndex])); // Generate food with the first required letter
+      food.push(generateFood(targetWordPinyin[currentPinyinIndex])); // Generate food with the first required letter
     } else {
       food.push(generateFood()); // Generate food with a random letter
     }
@@ -246,7 +245,7 @@ function handleFoodCollision(foodItem) {
   displayEatenLetters();
   growSnake = true;
 
-  if (eatenLetter === requiredPinyinLetters[currentPinyinIndex]) {
+  if (eatenLetter === targetWordPinyin[currentPinyinIndex]) {
     handleCorrectLetterCollision();
   } else {
     gameOver();
@@ -257,21 +256,21 @@ function handleCorrectLetterCollision() {
   const targetWordContainer = document.getElementById("target-word-container");
   currentPinyinIndex++;
   correctLettersEaten++;
-  targetWordBackground.style.width = `${(correctLettersEaten / requiredPinyinLetters.length) * 100}%`;
+  targetWordBackground.style.width = `${(correctLettersEaten / targetWordPinyin.length) * 100}%`;
   score += correctLettersEaten * 100;
   if (score > highScore) {
     highScore = score;
   }
   drawScore();
 
-  if (currentPinyinIndex >= requiredPinyinLetters.length) {
+  if (currentPinyinIndex >= targetWordPinyin.length) {
     handleTargetWordComplete();
     correctLettersEaten = 0;
     targetWordContainer.classList.add("glow");
     targetWordContainer.addEventListener('animationend', function() {
       targetWordContainer.classList.remove('glow');
     }, {once: true});
-    targetWordBackground.style.width = `${(correctLettersEaten / requiredPinyinLetters.length) * 100}%`;
+    targetWordBackground.style.width = `${(correctLettersEaten / targetWordPinyin.length) * 100}%`;
   } else {
     generateFoodItems();
   }
@@ -291,7 +290,7 @@ function generateFoodItems() {
   food = [];
   for (let i = 0; i < foodCount; i++) {
     if (i === 0) {
-      food.push(generateFood(requiredPinyinLetters[currentPinyinIndex])); // Generate food with the next required letter
+      food.push(generateFood(targetWordPinyin[currentPinyinIndex])); // Generate food with the next required letter
     } else {
       food.push(generateFood()); // Generate food with a random letter
     }
@@ -371,7 +370,7 @@ function gameOver() {
 
   // Display the correct target word
   const targetPinyinElement = document.getElementById('pinyin-letters');
-  targetPinyinElement.textContent = requiredPinyinLetters.join('');
+  targetPinyinElement.textContent = targetWordPinyin;
   const targetWordElement = document.getElementById('target-word');
   targetWordElement.textContent = '';
 
@@ -403,7 +402,7 @@ function restartGame() {
   isGameOver = false;
   score = 0;
   correctLettersEaten = 0;
-  targetWordBackground.style.width = `${(correctLettersEaten / requiredPinyinLetters.length) * 100}%`;
+  targetWordBackground.style.width = `${(correctLettersEaten / targetWordPinyin.length) * 100}%`;
 
   drawScore();
 
@@ -413,7 +412,7 @@ function restartGame() {
   // Generate initial food positions
   for (let i = 0; i < foodCount; i++) {
     if (i === 0) {
-      food.push(generateFood(requiredPinyinLetters[currentPinyinIndex])); // Generate food with the first required letter
+      food.push(generateFood(targetWordPinyin[currentPinyinIndex])); // Generate food with the first required letter
     } else {
       food.push(generateFood()); // Generate food with a random letter
     }
@@ -432,9 +431,9 @@ function restartGame() {
   gameLoop();
 }
 
-function getPinyinForCharacter(character, pinyinDictionary) {
+function getPinyinForCharacter(word, pinyinDictionary) {
   for (const pinyin in pinyinDictionary) {
-    if (pinyinDictionary[pinyin].includes(character)) {
+    if (pinyinDictionary[pinyin] == word) {
       return pinyin;
     }
   }
