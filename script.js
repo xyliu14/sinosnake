@@ -158,6 +158,8 @@ function gameLoop() {
 }
 
 function displayTargetWord(word) {
+  const targetpinyinElement = document.getElementById('pinyin-letters');
+  targetpinyinElement.textContent = '';
   const targetWordElement = document.getElementById('target-word');
   targetWordElement.textContent = word;
 
@@ -368,8 +370,10 @@ function gameOver() {
   clearEatenLettersDisplay();
 
   // Display the correct target word
+  const targetPinyinElement = document.getElementById('pinyin-letters');
+  targetPinyinElement.textContent = requiredPinyinLetters.join('');
   const targetWordElement = document.getElementById('target-word');
-  targetWordElement.textContent = requiredPinyinLetters.join('');
+  targetWordElement.textContent = '';
 
   // Clear the canvas
   context.clearRect(0, 0, canvas.width, canvas.height);
