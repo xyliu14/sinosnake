@@ -51,7 +51,7 @@ const pinyinLetters = ['ā', 'á', 'ǎ', 'à', 'a', 'ō', 'ó', 'ǒ', 'ò', 'o',
 
 // Load the files and parse them into the appropriate data structures
 async function loadFiles() {
-  const chineseWordsResponse = await fetch('asset/chinese_words.txt');
+  const chineseWordsResponse = await fetch('chinese_words.txt');
   chineseWords = (await chineseWordsResponse.text()).split('\n');
 
   const pinyinDictionaryResponse = await fetch('pinyin-dictionary.txt');
