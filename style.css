@@ -1,0 +1,136 @@
+body {
+  height: 100vh;
+  margin: 0;
+  background-color: rgb(105, 130, 105);
+}
+
+#game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
+#target-word {
+  position: relative;
+  color: rgb(241, 219, 191);
+  font-size: 2vw;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
+#target-word-container {
+  position: absolute;
+  bottom: 50%;
+  left: 15%;
+  width: 30%;
+  height: 5vh;
+  border: 3px solid #F3DEBA;
+  border-radius: 5px;
+  padding: 1vw;
+  margin: 1vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: rgb(54, 126, 24);
+  width: 0;
+}
+
+#eaten-letters {
+  position: absolute;
+  bottom: 45%;
+  left: 20%;
+  transform: translateX(-50%);
+  color: rgb(241, 219, 191);
+  font-size: 2vw;
+}
+
+#score-container {
+  position: absolute;
+  top: 12%;
+  left: 35%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #eadcc4;
+}
+
+#score-text {
+  margin-right: 1vw;
+}
+
+#high-score-text {
+  margin-left: 1vw;
+  padding-left: 1vw;
+  border-left: 2px solid #eadcc4; /* Add a vertical line */
+}
+
+#score-text, #high-score-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+}
+
+
+#game-over-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-over-text-container {
+  text-align: center;
+  color: white;
+  font-size: 3vw;
+}
+
+#play-again-button {
+  display: block;
+  border-radius: 20px;
+  border: 3px solid rgb(255, 255, 255);
+  font-size: 24px;
+  margin-top: 2vw;
+  font-size: 2vw;
+  padding: 1vw 2vw;
+}
+
+canvas {
+  border: 10px solid rgb(185, 155, 107);
+}
+
+.glow {
+  animation: glow 0.5s linear;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+@keyframes glow {
+  0% {
+    background-color: rgba(255, 233, 160, 0.6);
+  }
+  50% {
+    background-color: rgb(255, 233, 160);
+  }
+  100% {
+    background-color: rgba(255, 233, 160, 0.6);
+  }
+}
