@@ -1,11 +1,11 @@
-const canvas = document.getElementById('game'); // Changed from 'game-board' to 'game'
+const canvas = document.getElementById('gameCanvas'); // Changed from 'game-board' to 'game'
 const context = canvas.getContext('2d');
 
-const gridSize = 20;
-const tileCount = canvas.width / gridSize;
+let gridSize = 32;
+let tileCount;
 
-const foodCount = 5; // Number of food items you want on the board
-const snakeSpeed = 100;
+let foodCount = 5; // Number of food items you want on the board
+let snakeSpeed = 100;
 
 const background = 'rgb(241, 219, 191)';
 const snakeColor = 'rgb(170, 86, 86)';
@@ -14,7 +14,7 @@ const foodColor = 'rgb(105, 130, 105)';
 const targetWordBackground = document.getElementById('progress-bar');
 let correctLettersEaten = 0;
 
-let snake = [{ x: 10, y: 10 }];
+let snake;
 let velocity = { x: 0, y: 0 };
 let food = [];
 let growSnake = false;
@@ -27,6 +27,9 @@ let requiredPinyinLetters;
 let isGameOver = false;
 let score = 0;
 let highScore = 0;
+
+let touchStartX = null;
+let touchStartY = null;
 
 const scoreText = document.getElementById('score-text');
 const highScoreText = document.getElementById('high-score-text');
@@ -88,9 +91,21 @@ function generateTargetWord(chineseWords, pinyinDictionary) {
 }
 
 function startGame(chineseWords, pinyinDictionary) {
-  // Your existing game initialization code
 
+  // Add touch event listeners
+  canvas.addEventListener('touchstart', onTouchStart, false);
+  canvas.addEventListener('touchmove', onTouchMove, false);
+  canvas.addEventListener('touchend', onTouchEnd, false);
+
+  // Call the function on page load
+  resizeCanvas();
+
+  // Call the function when the window is resized
+  window.addEventListener('resize', resizeCanvas);
+  
   generateTargetWord(chineseWords, pinyinDictionary);
+
+  randomSnakePosition();
 
   // Generate initial food positions
   for (let i = 0; i < foodCount; i++) {
@@ -110,7 +125,6 @@ function startGame(chineseWords, pinyinDictionary) {
     food.push(generateFood());
   }
 
-  // Your existing game loop code
   gameLoop();
 }
 
@@ -122,6 +136,7 @@ function gameLoop() {
   moveSnake();
   
   if (isOutOfBounds()) {
+    (console.log("snake out of bounds"));
     gameOver();
     isGameOver = true;
     return;
@@ -131,6 +146,15 @@ function gameLoop() {
   checkSnakeCollision();
   draw();
   
+  let screenWidth = window.innerWidth;
+  if (screenWidth >= 768) {
+    snakeSpeed = 100;
+  } else if (screenWidth >= 480) {
+    snakeSpeed = 120;
+  } else {
+    snakeSpeed = 140;
+  }
+
   setTimeout(gameLoop, snakeSpeed);
 }
 
@@ -139,7 +163,6 @@ function displayTargetWord(word) {
   targetWordElement.textContent = word;
 
   updateTargetWordContainerWidth();
-  adjustPinyinFontSize();
 }
 
 function updateTargetWordContainerWidth() {
@@ -192,6 +215,15 @@ function generateValidFoodPosition() {
   return { x, y };
 }
 
+function randomSnakePosition() {
+  const maxGridX = Math.floor(canvas.width / gridSize) - 1;
+  const maxGridY = Math.floor(canvas.height / gridSize) - 1;
+  const initialSnakeX = Math.floor(Math.random() * (maxGridX + 1));
+  const initialSnakeY = Math.floor(Math.random() * (maxGridY + 1));
+
+  snake = [{ x: initialSnakeX, y: initialSnakeY }];
+}
+
 function generateFood(letter) {
   const position = generateValidFoodPosition();
   letter = letter || pinyinLetters[Math.floor(Math.random() * pinyinLetters.length)]; // Use the provided letter or pick a random one
@@ -216,6 +248,7 @@ function handleFoodCollision(foodItem) {
   if (eatenLetter === requiredPinyinLetters[currentPinyinIndex]) {
     handleCorrectLetterCollision();
   } else {
+    console.log("ate a wrong letter");
     gameOver();
   }
 }
@@ -268,12 +301,16 @@ function generateFoodItems() {
 
 function isOutOfBounds() {
     const head = snake[0];
+    console.log("head x: " + head.x);
+    console.log(tileCount);
+    console.log("head y: " + head.y);
     return head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount;
 }
 
 function checkSnakeCollision() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
+      console.log("snake collision");
       gameOver(); // Call the gameOver function when the snake collides with itself
       return;
     }
@@ -291,7 +328,15 @@ function draw() {
     }
 
     context.fillStyle = 'transparent';
-    context.font = '18px sans-serif';
+    let screenWidth = window.innerWidth;
+    if (screenWidth >= 768) {
+      context.font = '18px sans-serif';
+    } else if (screenWidth >= 480) {
+      context.font = '22px sans-serif';
+    } else {
+      context.font = '26px sans-serif';
+    }
+
     for (let f of food) {
       context.fillRect(f.x * gridSize, f.y * gridSize, gridSize - 2, gridSize - 2);
       context.fillStyle = foodColor;
@@ -306,15 +351,23 @@ function drawScore() {
   highScoreText.innerHTML = 'Best<br>' + highScore;
 }
 
-// function blinkTargetWord() {
-//   const targetWordContainer = document.getElementById("target-word-container");
-
-//   targetWordContainer.classList.add("highlight");
-
-//   setTimeout(() => {
-//     targetWordContainer.classList.remove("highlight");
-//   }, 1000);
-// }
+function resizeCanvas() {
+  let screenWidth = window.innerWidth;
+  if (screenWidth >= 768) {
+    gridSize = 24;
+    tileCount = 20;
+  } else if (screenWidth >= 480) {
+    gridSize = 28;
+    tileCount = 18;
+    foodCount = 4;
+  } else {
+    gridSize = 32;
+    tileCount = 16;
+    foodCount = 3;
+  }
+  canvas.width = gridSize * tileCount;
+  canvas.height = gridSize * tileCount;
+}
 
 
 function gameOver() {
@@ -344,23 +397,8 @@ function displayGameOverScreen(score) {
   playAgainButton.style.display = 'inline-block'; // Add this line
 }
 
-function adjustPinyinFontSize() {
-  const targetWordElement = document.getElementById('target-word');
-  const targetWordContainer = document.getElementById('target-word-container');
-  const containerWidth = targetWordContainer.clientWidth;
-
-  let fontSize = 24; // Start with the original font size
-  targetWordElement.style.fontSize = `${fontSize}px`;
-
-  while (targetWordElement.clientWidth > containerWidth) {
-    fontSize -= 1; // Reduce the font size by 1
-    targetWordElement.style.fontSize = `${fontSize}px`;
-  }
-}
-
-
 function restartGame() {
-  snake = [{ x: 10, y: 10 }];
+  randomSnakePosition();
   velocity = { x: 0, y: 0 };
   growSnake = false;
   food = [];
@@ -397,7 +435,6 @@ function restartGame() {
   gameLoop();
 }
 
-
 function getPinyinForCharacter(character, pinyinDictionary) {
   for (const pinyin in pinyinDictionary) {
     if (pinyinDictionary[pinyin].includes(character)) {
@@ -407,7 +444,6 @@ function getPinyinForCharacter(character, pinyinDictionary) {
 
   return ''; // Return an empty string if the character's pinyin is not found
 }
-
 
 function displayEatenLetters() {
   const eatenLettersElement = document.getElementById('eaten-letters');
@@ -424,6 +460,53 @@ function clearEatenLettersDisplay() {
     const eatenLettersElement = document.getElementById('eaten-letters');
     eatenLettersElement.innerHTML = '';
 }
+
+function onTouchStart(event) {
+  event.preventDefault();
+
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function onTouchEnd(event) {
+  if (!touchStartX || !touchStartY) {
+    return;
+  }
+
+  const touchEndX = event.changedTouches[0].clientX;
+  const touchEndY = event.changedTouches[0].clientY;
+
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+
+  const absDeltaX = Math.abs(deltaX);
+  const absDeltaY = Math.abs(deltaY);
+
+  if (Math.max(absDeltaX, absDeltaY) > 30) {
+    if (absDeltaX > absDeltaY) {
+      if (deltaX > 0 && velocity.x === 0) {
+        velocity = { x: 1, y: 0 };
+      } else if (deltaX < 0 && velocity.x === 0) {
+        velocity = { x: -1, y: 0 };
+      }
+    } else {
+      if (deltaY > 0 && velocity.y === 0) {
+        velocity = { x: 0, y: 1 };
+      } else if (deltaY < 0 && velocity.y === 0) {
+        velocity = { x: 0, y: -1 };
+      }
+    }
+  }
+
+  touchStartX = null;
+  touchStartY = null;
+}
+
+function onTouchMove(event) {
+  // Prevent the default behavior (page scrolling) when swiping on the game canvas
+  event.preventDefault();
+}
+
 
 document.addEventListener('keydown', (event) => {
   switch (event.key) {

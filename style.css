@@ -26,8 +26,8 @@ body {
 
 #target-word-container {
   position: absolute;
-  bottom: 50%;
-  left: 15%;
+  top: 22%;
+  right: 15%;
   width: 30%;
   height: 5vh;
   border: 3px solid #F3DEBA;
@@ -51,17 +51,15 @@ body {
 
 #eaten-letters {
   position: absolute;
-  bottom: 45%;
-  left: 20%;
-  transform: translateX(-50%);
+  top: 34%;
+  right: 19%;
   color: rgb(241, 219, 191);
-  font-size: 2vw;
 }
 
 #score-container {
   position: absolute;
-  top: 12%;
-  left: 35%;
+  top: 10%;
+  left: 33%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -80,7 +78,6 @@ body {
 
 #score-text, #high-score-text {
   font-family: 'Roboto', sans-serif;
-  font-size: 1vw;
 }
 
 
@@ -101,21 +98,24 @@ body {
   text-align: center;
   color: white;
   font-size: 3vw;
+  font-family: 'Roboto', sans-serif;
 }
 
 #play-again-button {
   display: block;
   border-radius: 20px;
   border: 3px solid rgb(255, 255, 255);
-  font-size: 24px;
+  font-size: 1vw;
   margin-top: 2vw;
-  font-size: 2vw;
   padding: 1vw 2vw;
 }
 
 canvas {
+  max-width: 90%;
+  max-height: 90%;
   border: 10px solid rgb(185, 155, 107);
 }
+
 
 .glow {
   animation: glow 0.5s linear;
@@ -134,3 +134,60 @@ canvas {
     background-color: rgba(255, 233, 160, 0.6);
   }
 }
+
+/* Responsive styles for mobile and small screens */
+@media screen and (max-width: 768px) {
+  #score-text, #high-score-text {
+    font-size: 4vw;
+  }
+  #target-word {
+    font-size: 4vw;
+  }
+  #eatenletters {
+    font-size: 4vw;
+  } 
+  #target-word-container {
+    width: 60%;
+  }
+  #game-over-text-container {
+    font-size: 8vw;
+  }
+  #play-again-button {
+    font-size: 4vw;
+    padding: 2vw 4vw;
+  }
+}
+
+@media (max-width: 768px) {
+  #target-word-container {
+    position: absolute;
+    top: 8%;
+    right: 10%;
+  }
+  #eaten-letters {
+    position: absolute;
+    top: 17%;
+    right: 17%;
+  }
+  #score-container {
+    top: 17%;
+    left: 10%;
+  }
+}
+
+/* Responsive styles for larger screens */
+@media screen and (min-width: 769px) {
+  #score-text, #high-score-text {
+    font-size: 1vw;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  #target-word, #eaten-letters {
+    font-size: 2vw;
+  }
+}
+
+
+
+
