@@ -54,7 +54,7 @@ async function loadFiles() {
   const chineseWordsResponse = await fetch('asset/chinese_words.txt');
   chineseWords = (await chineseWordsResponse.text()).split('\n');
 
-  const pinyinDictionaryResponse = await fetch('pinyin-dictionary2.txt');
+  const pinyinDictionaryResponse = await fetch('pinyin-dictionary.txt');
   const pinyinDictionaryText = await pinyinDictionaryResponse.text();
   pinyinDictionary = parsePinyinDictionary(pinyinDictionaryText);
 
