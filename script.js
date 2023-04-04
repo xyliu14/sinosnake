@@ -45,8 +45,8 @@ playAgainButton.addEventListener('click', function () {
 
 const pinyinLetters = ['ā', 'á', 'ǎ', 'à', 'a', 'ō', 'ó', 'ǒ', 'ò', 'o', 'ē', 'é', 'ě', 'è', 'e', 
                         'ī', 'í', 'ǐ', 'ì', 'i', 'ū', 'ú', 'ǔ', 'ù', 'u', 'ǖ', 'ǘ', 'ǚ', 'ǜ', 'ü', 
-                        'b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'zh', 
-                        'ch', 'sh', 'r', 'z', 'c', 's', 'y', 'w'];
+                        'b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'r', 
+                        'z', 'c', 's', 'y', 'w'];
 
 
 // Load the files and parse them into the appropriate data structures
@@ -54,7 +54,7 @@ async function loadFiles() {
   const chineseWordsResponse = await fetch('asset/chinese_words.txt');
   chineseWords = (await chineseWordsResponse.text()).split('\n');
 
-  const pinyinDictionaryResponse = await fetch('pinyin-dictionary.txt');
+  const pinyinDictionaryResponse = await fetch('pinyin-dictionary2.txt');
   const pinyinDictionaryText = await pinyinDictionaryResponse.text();
   pinyinDictionary = parsePinyinDictionary(pinyinDictionaryText);
 
@@ -106,14 +106,7 @@ function startGame(chineseWords, pinyinDictionary) {
 
   randomSnakePosition();
 
-  // Generate initial food positions
-  for (let i = 0; i < foodCount; i++) {
-    if (i === 0) {
-      food.push(generateFood(targetWordPinyin[currentPinyinIndex])); // Generate food with the first required letter
-    } else {
-      food.push(generateFood()); // Generate food with a random letter
-    }
-  }
+  generateFoodItems();
 
   food = food.filter((item, index, self) => 
     index === self.findIndex((t) => (t.x === item.x && t.y === item.y))
