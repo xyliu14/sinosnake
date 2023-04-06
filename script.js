@@ -31,6 +31,7 @@ let targetWordPinyin;
 let isGameOver = false;
 let score = 0;
 let highScore = 0;
+let foodChanged = false;
 
 let touchStartX = null;
 let touchStartY = null;
@@ -109,6 +110,8 @@ function startGame(chineseWords, pinyinDictionary) {
   generateTargetWord(chineseWords, pinyinDictionary);
 
   randomSnakePosition();
+
+  generateFoodItems();
 
   food = food.filter((item, index, self) => 
     index === self.findIndex((t) => (t.x === item.x && t.y === item.y))
@@ -415,12 +418,12 @@ function restartGame() {
 }
 
 function getPinyinForCharacter(word, pinyinDictionary) {
-  for (const pinyin in pinyinDictionary) {
-    if (pinyinDictionary[pinyin] == word) {
+  let pinyin;
+  for (pinyin in pinyinDictionary) {
+    if (pinyinDictionary[pinyin].includes(word)) {
       return pinyin;
     }
   }
-
   return ''; // Return an empty string if the character's pinyin is not found
 }
 
