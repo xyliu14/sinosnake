@@ -4,15 +4,19 @@ const context = canvas.getContext('2d');
 let gridSize = 32;
 let tileCount;
 
-let foodCount = 5; // Number of food items you want on the board
-let snakeSpeed;
+let foodCount = 3; // Number of food items you want on the board
+let snakeSpeed = 150;
 
 const background = 'rgb(241, 219, 191)';
 const snakeColor = 'rgb(170, 86, 86)';
 const foodColor = 'rgb(105, 130, 105)';
 // const targetWordColor = 'rgb(241, 219, 191)';
 const targetWordBackground = document.getElementById('progress-bar');
+const speedControl = document.getElementById('speed');
+const foodControl = document.getElementById('food');
 let correctLettersEaten = 0;
+let snakeSpeedControl = parseInt(speedControl.value);
+
 
 let snake;
 let velocity = { x: 0, y: 0 };
@@ -106,8 +110,6 @@ function startGame(chineseWords, pinyinDictionary) {
 
   randomSnakePosition();
 
-  generateFoodItems();
-
   food = food.filter((item, index, self) => 
     index === self.findIndex((t) => (t.x === item.x && t.y === item.y))
   );
@@ -136,15 +138,6 @@ function gameLoop() {
   checkFoodCollision();
   checkSnakeCollision();
   draw();
-  
-  let screenWidth = window.innerWidth;
-  if (screenWidth >= 768) {
-    snakeSpeed = 120;
-  } else if (screenWidth >= 480) {
-    snakeSpeed = 140;
-  } else {
-    snakeSpeed = 160;
-  }
 
   setTimeout(gameLoop, snakeSpeed);
 }
@@ -258,7 +251,6 @@ function handleCorrectLetterCollision() {
 
   if (currentPinyinIndex >= targetWordPinyin.length) {
     handleTargetWordComplete();
-    correctLettersEaten = 0;
     targetWordContainer.classList.add("glow");
     targetWordContainer.addEventListener('animationend', function() {
       targetWordContainer.classList.remove('glow');
@@ -271,10 +263,10 @@ function handleCorrectLetterCollision() {
 }
 
 function handleTargetWordComplete() {
-  // blinkTargetWord();
   currentPinyinIndex = 0;
-  clearEatenLettersDisplay();
+  correctLettersEaten = 0;
   eatenLetters = [];
+  clearEatenLettersDisplay();
   generateTargetWord(chineseWords, pinyinDictionary);
   generateFoodItems();
 }
@@ -346,11 +338,9 @@ function resizeCanvas() {
   } else if (screenWidth >= 480) {
     gridSize = 28;
     tileCount = 18;
-    foodCount = 4;
   } else {
     gridSize = 32;
     tileCount = 16;
-    foodCount = 3;
   }
   canvas.width = gridSize * tileCount;
   canvas.height = gridSize * tileCount;
@@ -515,4 +505,23 @@ document.addEventListener('keydown', (event) => {
       if (velocity.x === 0) velocity = { x: 1, y: 0 };
       break;
   }
+});
+
+speedControl.addEventListener('input', () => {
+  snakeSpeedControl = parseInt(speedControl.value);
+  let screenWidth = window.innerWidth;
+  if (screenWidth >= 768) {
+    snakeSpeed = (1/snakeSpeedControl) * 300;
+    console.log(`New snake speed: ${snakeSpeed}`);
+  } else if (screenWidth >= 480) {
+    snakeSpeed = 80 * snakeSpeedControl;
+  } else {
+    snakeSpeed = 80 * snakeSpeedControl;
+  }
+});
+
+foodControl.addEventListener('change', () => {
+  foodCount = parseInt(foodControl.value);
+  console.log(`New number of food items: ${foodCount}`);
+  generateFoodItems();
 });
