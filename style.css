@@ -1,225 +1,313 @@
 body {
-  height: 100vh;
-  margin: 0;
-  background-color: rgb(105, 130, 105);
+    height: 100vh;
+    margin: 0;
+    background-color: rgb(105, 130, 105);
 }
 
-
 #gameCanvas {
-  display: block;
-  margin: 0 auto;
+    display: block;
+    margin: 0 auto;
 }
 
 #instructions {
-  font-family: 'Roboto', sans-serif;
-  text-align: left;
-  position: absolute;
-  transform: translateX(-50%);
-  color: rgb(241, 219, 191);
+    font-family: 'Roboto', sans-serif;
+    color: #f1dbbf;
 }
 
 #instructions strong {
-  font-weight: bold;
-}
-
-#game-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  position: absolute;
+    font-weight: bold;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
 #target-word {
-  position: relative;
-  color: rgb(241, 219, 191);
-  font-size: 2vw;
-  padding: 0px;
-  margin: 0px;
-  text-align: center;
-  font-family: 'Noto Sans SC', sans-serif;
+    position: relative;
+    color: rgb(241, 219, 191);
+    font-size: 2vw;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    font-family: 'Noto Sans SC', sans-serif;
 }
 
 #pinyin-letters {
-  font-family: 'Noto Sans SC', sans-serif;
-  color: rgb(241, 219, 191);
-  font-size: 2vw;
+    font-family: 'Noto Sans SC', sans-serif;
+    color: rgb(241, 219, 191);
+    font-size: 2vw;
 }
 
 #target-word-container {
-  position: absolute;
-  top: 22%;
-  right: 15%;
-  width: 30%;
-  height: 5vh;
-  border: 3px solid #F3DEBA;
-  border-radius: 5px;
-  padding: 1vw;
-  margin: 1vw;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#progress-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background-color: rgb(54, 126, 24);
-  width: 0;
-}
+    position: absolute;
+    top: 22%;
+    right: 15%;
+    width: 30%;
+    height: 5vh;
+    border: 3px solid #F3DEBA;
+    border-radius: 5px;
+    padding: 1vw;
+    margin: 1vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgb(54, 126, 24);
+    width: 0;
+  }
 
 #eaten-letters {
-  font-family: 'Roboto', sans-serif;
-  position: absolute;
-  top: 34%;
-  right: 17%;
-  color: rgb(241, 219, 191);
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 34%;
+    right: 17%;
+    color: rgb(241, 219, 191);
 }
 
 #score-container {
-  position: absolute;
-  top: 10%;
-  left: 33%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: #eadcc4;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #eadcc4;
+    justify-content: center;
+    padding: 10px 0px;
 }
 
 #score-text {
-  margin-right: 1vw;
+    margin-right: 1vw;
 }
 
 #high-score-text {
-  margin-left: 1vw;
-  padding-left: 2vw;
-  border-left: 2px solid #eadcc4; /* Add a vertical line */
+    margin-left: 1vw;
+    padding-left: 2vw;
+    border-left: 2px solid #eadcc4;
+    /* Add a vertical line */
 }
 
-#score-text, #high-score-text {
-  font-family: 'Roboto', sans-serif;
+#score-text,
+#high-score-text {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
 }
-
 
 #game-over-overlay {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
 }
 
 #game-over-text-container {
-  text-align: center;
-  color: white;
-  font-size: 3vw;
-  font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 3vw;
+    font-family: 'Roboto', sans-serif;
 }
 
 #play-again-button {
-  display: block;
-  border-radius: 20px;
-  border: 3px solid rgb(255, 255, 255);
-  font-size: 1vw;
-  margin-top: 2vw;
-  padding: 1vw 2vw;
+    display: block;
+    border-radius: 20px;
+    border: 3px solid rgb(255, 255, 255);
+    font-size: 1vw;
+    margin-top: 2vw;
+    padding: 1vw 2vw;
 }
 
 canvas {
-  max-width: 90%;
-  max-height: 90%;
-  border: 10px solid rgb(185, 155, 107);
+    max-width: 100%;
+    max-height: 60%;
+    border: 10px solid rgb(185, 155, 107);
 }
 
-
 .glow {
-  animation: glow 0.5s linear;
-  animation-fill-mode: forwards;
-  opacity: 1;
+    animation: glow 0.5s linear;
+    animation-fill-mode: forwards;
+    opacity: 1;
 }
 
 @keyframes glow {
-  0% {
-    background-color: rgba(255, 233, 160, 0.6);
-  }
-  50% {
-    background-color: rgb(255, 233, 160);
-  }
-  100% {
-    background-color: rgba(255, 233, 160, 0.6);
-  }
+    0% {
+        background-color: rgba(255, 233, 160, 0.6);
+    }
+    50% {
+        background-color: rgb(255, 233, 160);
+    }
+    100% {
+        background-color: rgba(255, 233, 160, 0.6);
+    }
 }
+
 
 /* Responsive styles for mobile and small screens */
+
 @media screen and (max-width: 768px) {
-  #score-text, #high-score-text {
-    font-size: 4vw;
-  }
-  #target-word {
-    font-size: 6vw;
-  }
-  #pinyin-letters {
-    font-family: 'Noto Sans SC', sans-serif;
-    color: rgb(241, 219, 191);
-    font-size: 4vw;
-  }
-  #eaten-letters {
-    font-size: 6vw;
-    position: absolute;
-    top: 17%;
-    right: 17%;
-  } 
-  #target-word-container {
-    position: absolute;
-    top: 8%;
-    right: 10%;
-  }
-  #game-over-text-container {
-    font-size: 8vw;
-  }
-  #play-again-button {
-    font-size: 4vw;
-    padding: 2vw 4vw;
-  }
-  #instructions {
-    font-size: 4vw;
-    bottom: 8%;
-    left: 50%;
-    /* letter-spacing: 0.3vw; */
-    width: 85%;
-  }
-  canvas {
-    border: 5px solid rgb(185, 155, 107);
-  }
-  #score-container {
-    top: 15%;
-    left: 10%;
-  }
+    #speed {
+        position: absolute;
+        top: 24%;
+        left: 10%;
+        width: 20%;
+    }
+    .controls-container .slow {
+        position: absolute;
+        top: 18%;
+        left: 10%;
+    }
+
+    #food {
+        position: absolute;
+        top: 24%;
+        left: 40%;
+        width: 6%;
+    }
+
+    .controls-container .numfood{
+        position: absolute;
+        top: 18%;
+        left: 40%;
+    }
+    
+    #score-text,
+    #high-score-text {
+        font-size: 4vw;
+    }
+    #target-word {
+        font-size: 6vw;
+    }
+    #pinyin-letters {
+        font-family: 'Noto Sans SC', sans-serif;
+        color: rgb(241, 219, 191);
+        font-size: 4vw;
+    }
+    #eaten-letters {
+        font-size: 6vw;
+        position: absolute;
+        top: 15%;
+        right: 17%;
+    }
+    #target-word-container {
+        position: absolute;
+        top: 5%;
+        right: 10%;
+    }
+    #game-over-text-container {
+        font-size: 8vw;
+    }
+    #play-again-button {
+        font-size: 4vw;
+        padding: 2vw 4vw;
+    }
+    #instructions {
+        position: relative;
+        font-size: 4vw;
+        bottom: 10%;
+        left: 6%;
+        width: 85%;
+    }
+    canvas {
+        border: 5px solid rgb(185, 155, 107);
+        max-width: 90%;
+    }
+    #score-container {
+        position: absolute;
+        top: 8%;
+        left: 10%;
+    }
+
+    #game-container {
+        position: absolute;
+        top: 27%;
+    }
+
 }
 
+
 /* Responsive styles for larger screens */
+
 @media screen and (min-width: 769px) {
-  #score-text, #high-score-text {
-    font-size: 1vw;
-  }
-  #target-word, #eaten-letters {
-    font-size: 2vw;
-  }
-  #instructions {
-    font-size: 1vw;
-    bottom: 10%;
-    left: 50%;
-    width: 35%;
-    /* letter-spacing: 0.07vw; */
-  }
+    #score-text,
+    #high-score-text {
+        font-size: 1vw;
+    }
+    #target-word,
+    #eaten-letters {
+        font-size: 3vmin;
+    }
+    #instructions {
+        font-size: 2vmin;
+        max-width: 500px;
+        margin: auto;
+        padding: 10px 0px;
+    }
+
+    #score-container {
+        position: absolute;
+        top: 12%;
+        left: 35%;
+    }
+
+    #game-container {
+        position: absolute;
+        top: 20%;
+        left: 33%;
+    }
+
+    #speed {
+        position: absolute;
+        bottom: 40%;
+        left: 20%;
+        width: 8%;
+    }
+    
+    #food {
+        position: absolute;
+        bottom: 27%;
+        left: 20%;
+        width: 4%;
+    }
+    
+    .controls-container .slow {
+        position: absolute;
+        bottom: 43%;
+        left: 20%;
+    }
+    
+    .controls-container .numfood{
+        position: absolute;
+        bottom: 31%;
+        left: 20%;
+    }
+}
+
+.d-md-flex {
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: row-reverse;
+}
+
+@media(max-width:768px) {
+    #target-word-container {
+        position: absolute;
+        right: 15px;
+        margin: 10px 0px 0px 0px;
+    }
+    #game-container {
+        margin-top: 20px;
+    }
+}
+
+@media(min-width:768px) {
+    .d-md-flex {
+        display: flex;
+    }
 }
