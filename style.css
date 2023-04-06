@@ -154,26 +154,26 @@ canvas {
     #speed {
         position: absolute;
         top: 24%;
-        left: 10%;
+        left: 5%;
         width: 20%;
     }
     .controls-container .slow {
         position: absolute;
         top: 18%;
-        left: 10%;
+        left: 5%;
     }
 
     #food {
         position: absolute;
         top: 24%;
-        left: 40%;
+        left: 35%;
         width: 6%;
     }
 
     .controls-container .numfood{
         position: absolute;
         top: 18%;
-        left: 40%;
+        left: 35%;
     }
     
     #score-text,
@@ -220,7 +220,7 @@ canvas {
     #score-container {
         position: absolute;
         top: 8%;
-        left: 10%;
+        left: 5%;
     }
 
     #game-container {
