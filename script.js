@@ -512,7 +512,6 @@ speedControl.addEventListener('input', () => {
   let screenWidth = window.innerWidth;
   if (screenWidth >= 768) {
     snakeSpeed = (1/snakeSpeedControl) * 300;
-    console.log(`New snake speed: ${snakeSpeed}`);
   } else if (screenWidth >= 480) {
     snakeSpeed = 80 * snakeSpeedControl;
   } else {
@@ -522,6 +521,7 @@ speedControl.addEventListener('input', () => {
 
 foodControl.addEventListener('change', () => {
   foodCount = parseInt(foodControl.value);
-  console.log(`New number of food items: ${foodCount}`);
-  generateFoodItems();
+  if (foodCount){
+    generateFoodItems();
+  }
 });
