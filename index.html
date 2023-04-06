@@ -1,33 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SinoSnake</title>
-  <link rel="stylesheet" href="style.css" type="text/css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SinoSnake</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <div id="score-container">
-    <span id="score-text" class="score-box"></span>
-    <span id="high-score-text" class="score-box"></span>
-  </div>
-  <div id="game-container">
-    <canvas id="gameCanvas"></canvas>
-    <p id="instructions"><strong>How to play:</strong> Use arrow keys (or WASD) to eat the letters that spell out the Chinese word. But be careful! If you eat wrong letter, you'll lose.</p>
-  </div>
-  <div id="target-word-container">
-    <div id="progress-bar"></div>
-    <p id="target-word"></p>
-    <p id="pinyin-letters"></p> 
-  </div> 
-  <div id="eaten-letters"></div>
-  <div id="game-over-overlay">
-    <div id="game-over-text-container">
-      <p id="game-over-text"></p>
-      <button id="play-again-button">Play Again</button>
-    </div>
-  </div>
-  <script src="script.js" type="module"></script>
+    <div class="d-md-flex">
+        <div id="target-word-container">
+            <div id="progress-bar"></div>
+            <p id="target-word"></p>
+            <p id="pinyin-letters"></p>
+        </div>
+        <div class="controls-container">
+            <img src="turtle.png" alt="Images" class="red-filter slow" style="width: 30px; height: 30px;">
+            <input type="range" id="speed" min="1" max="4" value="2"> 
+            <img src="foodamount.png" alt="Images" class="red-filter numfood" style="width: 30px; height: 30px;">
+            <input type="number" id="food" min="3" max="10" value="3">   
+        </div>
+        <div>
+            <div class="head-group">
+                <div id="score-container">
+                    <span id="score-text" class="score-box"></span>
+                    <span id="high-score-text" class="score-box"></span>
+                </div>
+
+                <div id="game-container">
+                    <canvas id="gameCanvas"></canvas>
+                    <p id="instructions"><strong>How to play:</strong> Use arrow keys (or WASD) to eat the letters that spell out the Chinese word. But be careful! If you eat wrong letter, you'll lose.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="eaten-letters"></div>
+        <div id="game-over-overlay">
+            <div id="game-over-text-container">
+                <p id="game-over-text"></p>
+                <button id="play-again-button">Play Again</button>
+            </div>
+        </div>
+        <script src="script.js" type="module"></script>
 </body>
+
 </html>
